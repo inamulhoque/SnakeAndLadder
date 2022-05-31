@@ -35,6 +35,8 @@ public class SnakeAndLadder {
             System.out.println("Player position: "+playerPosition);
             if (playerPosition==100){
                 System.out.println("Congratulation!!! you have won.");
+            } else if (playerPosition>100){
+                playerPosition=playerPosition-dice;
             }
         }
     }
