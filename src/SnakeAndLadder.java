@@ -17,6 +17,7 @@ public class SnakeAndLadder {
         switch (option){
             case 1:
                 System.out.println("No Play");
+                playerPosition=playerPosition;
                 break;
             case 2:
                 if (playerPosition<=100) {
@@ -25,18 +26,8 @@ public class SnakeAndLadder {
                 break;
             case 3:
                 playerPosition=playerPosition-dice;
-                if (playerPosition-dice >=0) {
-                    playerPosition=playerPosition-dice;
-                }
                 break;
         }
-        if (0 <= playerPosition && playerPosition < 100){
-            System.out.println("Player's position is:" + playerPosition);
-        } else if (playerPosition==100) {
-            System.out.println("You have won!!!");
-        } else if (playerPosition<0){
-            System.out.println();
-        }
-
+        System.out.println("Player's current position is: "+playerPosition);
     }
 }
