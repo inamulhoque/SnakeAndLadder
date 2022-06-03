@@ -1,50 +1,77 @@
-import java.util.Scanner;
+class CheckStatus{
+    public static int positionOfPlayer1;
+    public static int positionOfPlayer2;
+    public static boolean chance;
+    public static void checkOption()
+    {
+        int dice = (int)(Math.random()*10)%6+1;
+        System.out.println("Dice number: "+dice);
+
+        int option = (int)(Math.random()*3+1);
+
+        switch (option)
+        {
+            case 1:
+                System.out.println("It's a snake");
+                if(chance) {
+                    positionOfPlayer1-=dice;
+                    System.out.println("Current position of Player 1: "+positionOfPlayer1);
+                }
+                else
+                {
+                    positionOfPlayer2-=dice;
+                    System.out.println("Current position of Player 2: "+positionOfPlayer2);
+                }
+                if(positionOfPlayer1<0||positionOfPlayer2<0) {positionOfPlayer1=0;positionOfPlayer2=0;}
+
+                break;
+            case 2:
+                System.out.println("It's a ladder");
+                if(chance) {
+                    positionOfPlayer1+=dice;
+                    chance = false;
+                }
+                else
+                {
+                    positionOfPlayer2+=dice;
+                    chance = true;
+                }
+                System.out.println("Current position of player : "+positionOfPlayer1);
+                break;
+            case 3:
+                System.out.println("No Play");
+                if(chance) {
+                    System.out.println("Current position of Player 1: "+positionOfPlayer1);
+                }
+                else
+                {
+                    System.out.println("Current position of Player 2: "+positionOfPlayer2);
+                }
+        }
+    }
+}
 public class SnakeAndLadder {
+
     public static void main(String[] args) {
-        int playerPosition = 0;
-        System.out.println("Starting position of player : "+playerPosition);
-        System.out.println("\nOption 1 : No Play");
-        System.out.println("Option 2 : Ladder");
-        System.out.println("Option 3 : Snake\n");
-        int count =1;
-
-
-        for (playerPosition=1;playerPosition<=100;playerPosition++) {
-            int dice = (int)(Math.random()*10)%6+1;
-            System.out.println("Dice number: "+dice);
-            int No_Play = 1;
-            int Ladder = 2;
-            int Snake = 3;
-            int option = (int) (Math.random() * 10) % 3 + 1;
+        System.out.println("Current position of Player 1: "+CheckStatus.positionOfPlayer1);
+        System.out.println("Current position of Player 2: "+CheckStatus.positionOfPlayer2);
+        int count = 0;
+        while(CheckStatus.positionOfPlayer1<100 || CheckStatus.positionOfPlayer2<100) {
+            CheckStatus.checkOption();
             count++;
-            System.out.println("The player got: " + option);
-            switch (option) {
-                case 1:
-                    System.out.println("No Play");
-                    playerPosition = playerPosition + 0;
-                    System.out.println("Player Position after dice roll:"+playerPosition);
-                    break;
-                case 2:
-                    if (playerPosition <= 100) {
-                        playerPosition = playerPosition + dice;
-                    }
-                    System.out.println("Player Position after dice roll:"+playerPosition);
-                    break;
-                case 3:
-                    playerPosition = playerPosition - dice;
-                    if (playerPosition < 0) {
-                        playerPosition = 0;
-                    }
-                    System.out.println("Player Position after dice roll:"+playerPosition);
-                    break;
+            if(CheckStatus.chance) {
+                CheckStatus.chance = false;
             }
-            System.out.println("Player position: "+playerPosition);
-            if (playerPosition==100){
-                System.out.println("Congratulation!!! you have won.");
-                System.out.println(count+" number of times dice rolled.");
-            } else if (playerPosition>100){
-                playerPosition=playerPosition-dice;
+            else {
+                CheckStatus.chance=true;
             }
+        }
+        System.out.println(count+" number of times the dice rolled");
+        if(CheckStatus.chance) {
+            System.out.println("Player 1 won!!!");
+        }
+        else {
+            System.out.println("Player 2 won!!!");
         }
     }
 }
